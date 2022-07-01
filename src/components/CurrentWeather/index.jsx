@@ -1,19 +1,10 @@
 
 import style from './CurrentWeather.module.scss';
-import { useApi } from '../../context/ApiContext';
 
 
-export const CurrentWeather = () => {
+export const CurrentWeather = ( { weather }) => {
 
-	const {
-		data : weather, 
-		loading
-	} = useApi()
-	
-	if (loading) {
-		return <p>Loading..</p>;
-	}
-	
+	console.log(weather)
 	return (
 		<section className={style.currentWeather}>
 			<div className='currentWeather--details'>

@@ -1,14 +1,8 @@
-import { useApi } from '../../context/ApiContext';
 import style from './ListDays.module.scss';
 import { Day } from '../Day';
 
-export const ListDays = () => {
-	const { data: weather, loading } = useApi();
+export const ListDays = ( { weather }) => {
 
-	if (loading) {
-		return <p>Charing data</p>;
-	}
-	console.log(weather);
 	return (
 		<ul className={style.daily}>
 			{weather.daily.map(day => (

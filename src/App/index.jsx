@@ -1,13 +1,8 @@
-import { CurrentWeather } from '../components/CurrentWeather';
 import { ApiContextProvider } from '../context/ApiContext';
-import { ListDays } from '../components/ListDays';
-
+import { AppUI } from './AppUI';
 
 export const App = () => {
-	return (
-		<ApiContextProvider>
-			<CurrentWeather />
-			<ListDays/>
-		</ApiContextProvider>
-	);
+	return <ApiContextProvider>
+		<AppUI/>
+	</ApiContextProvider>;
 };
