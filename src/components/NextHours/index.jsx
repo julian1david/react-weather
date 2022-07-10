@@ -1,9 +1,12 @@
-import { Hours } from "../../Hours";
+import { Hours } from "../Hours";
 
-export const NextHours = () => {
+export const NextHours = ({ weather }) => {
+
+	weather.hourly.length = 20;
+
 	return (
-	<ul>
-		<Hours/>
+	<ul className="container">
+		{weather.hourly.map((hour, id) =>< Hours  key={hour.dt}  {...hour} addHour={id} /> )}
 	</ul>
 	)
 };
