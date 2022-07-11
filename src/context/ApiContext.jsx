@@ -10,7 +10,11 @@ const ApiContextProvider = ({ children }) => {
 	/* use State */
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [coordinates, setCoordinates] = useState({ lat: 43.4, long: 3.16 });
+	// Si uso el estado vacio en la primer carga aparece un error de axios pero luego carga con las coordenadas de getLatAndLoading
+	// const [coordinates, setCoordinates] = useState({  });
+	const [coordinates, setCoordinates] = useState({ lat: 47.4, long: 3.16 });
+	// Con este estado prioriza la carga de este state
+
 
 	useEffect(() => {
 		const getLatAndLong = () => {
@@ -33,13 +37,14 @@ const ApiContextProvider = ({ children }) => {
 						long: coords.longitude,
 					};
 					setCoordinates(newUserPos);
+					console.log(newUserPos)
 			
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		location()
-	}, []);
+	},[]);
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -56,7 +61,7 @@ const ApiContextProvider = ({ children }) => {
 			};
 			infoWeather();
 		}, 2000);
-	}, []);
+	}, [coordinates]);
 
 	return (
 		<ApiContext.Provider
