@@ -10,37 +10,43 @@ const ApiContextProvider = ({ children }) => {
 	/* use State */
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [coordinates, setCoordinates] = useState({ lat: 47.44, long: 3.16 });
+	const [coordinates, setCoordinates] = useState({ lat: 43.4, long: 3.16 });
 
 	useEffect(() => {
-		// check if the Geolocation API is supported
-		if (!navigator.geolocation) {
-			console.log(`Your browser doesn't support Geolocation`);
-			return;
-		}
+		const getLatAndLong = () => {
+			return new Promise((resolve, reject) =>
+			navigator.geolocation.getCurrentPosition(resolve, reject)
+		);}
 
-		navigator.geolocation.getCurrentPosition(
-			pos => {
-				const newUserPos = {
-					lat: pos.coords.latitude,
-					long: pos.coords.longitude,
-				};
-				setCoordinates(newUserPos);
-				console.log(newUserPos);
-			},
-			error => {
+		const location = async () => {
+
+			try {
+				// check if the Geolocation API is supported
+				if (!navigator.geolocation) {
+					console.log(`Your browser doesn't support Geolocation`);
+					return;
+				}
+				const position = await getLatAndLong()
+					const { coords } = position;
+					const newUserPos = {
+						lat: coords.latitude,
+						long: coords.longitude,
+					};
+					setCoordinates(newUserPos);
+			
+			} catch (error) {
 				console.log(error);
 			}
-		);
+		};
+		location()
 	}, []);
 
 	useEffect(() => {
 		setTimeout(() => {
 			const infoWeather = async () => {
 				try {
-					const results = await axios(
-						`${API}onecall?lat=${coordinates.lat}&lon=${coordinates.long}&appid=${API_KEY}&units=metric`
-					);
+					const url =  `${API}onecall?lat=${coordinates.lat}&lon=${coordinates.long}&appid=${API_KEY}&units=metric`
+					const results = await axios(url);
 					const weather = results.data;
 					setData(weather);
 					setLoading(false);
