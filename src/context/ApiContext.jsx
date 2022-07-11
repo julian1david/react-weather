@@ -12,56 +12,54 @@ const ApiContextProvider = ({ children }) => {
 	const [loading, setLoading] = useState(true);
 	// Si uso el estado vacio en la primer carga aparece un error de axios pero luego carga con las coordenadas de getLatAndLoading
 	// const [coordinates, setCoordinates] = useState({  });
-	const [coordinates, setCoordinates] = useState({ lat: 47.4, long: 3.16 });
+	const [coordinates, setCoordinates] = useState(null);
 	// Con este estado prioriza la carga de este state
-
 
 	useEffect(() => {
 		const getLatAndLong = () => {
 			return new Promise((resolve, reject) =>
-			navigator.geolocation.getCurrentPosition(resolve, reject)
-		);}
+				navigator.geolocation.getCurrentPosition(resolve, reject)
+			);
+		};
 
 		const location = async () => {
-
 			try {
 				// check if the Geolocation API is supported
 				if (!navigator.geolocation) {
 					console.log(`Your browser doesn't support Geolocation`);
 					return;
 				}
-				const position = await getLatAndLong()
-					const { coords } = position;
-					const newUserPos = {
-						lat: coords.latitude,
-						long: coords.longitude,
-					};
-					setCoordinates(newUserPos);
-					console.log(newUserPos)
-			
+				const position = await getLatAndLong();
+				const { coords } = position;
+				const newUserPos = {
+					lat: coords.latitude,
+					long: coords.longitude,
+				};
+				setCoordinates(newUserPos);
+				console.log(newUserPos);
 			} catch (error) {
 				console.log(error);
 			}
 		};
-		location()
-	},[]);
+		location();
+	}, []);
 
 	useEffect(() => {
-		setTimeout(() => {
-			const infoWeather = async () => {
-				try {
-					const url =  `${API}onecall?lat=${coordinates.lat}&lon=${coordinates.long}&appid=${API_KEY}&units=metric`
+		const infoWeather = async () => {
+			try {
+				if(coordinates !== null){
+					const url = `${API}onecall?lat=${coordinates.lat}&lon=${coordinates.long}&appid=${API_KEY}&units=metric`;
 					const results = await axios(url);
 					const weather = results.data;
 					setData(weather);
 					setLoading(false);
-				} catch (error) {
-					console.log(error);
 				}
-			};
-			infoWeather();
-		}, 2000);
-	}, [coordinates]);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		infoWeather();
+	}, [ coordinates]);
 
 	return (
 		<ApiContext.Provider
