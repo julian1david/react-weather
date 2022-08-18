@@ -2,9 +2,8 @@ import { getCurrentHour } from '../../utilities/CurrentHour';
 import style from './Hours.module.scss';
 
 export const Hours = ({ weather, addHour, temp }) => {
+	const hour = getCurrentHour(addHour);
 
-	const hour = getCurrentHour(addHour)
-	
 	return (
 		<li className={style.hours}>
 			<p>{temp}</p>

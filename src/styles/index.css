@@ -16,20 +16,21 @@ body {
 	color: white;
 }
 
-ul, ol{
+ul,
+ol {
 	list-style: none;
 }
 
-.container{
+.container {
 	margin: 20px auto;
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
+	display: flex;
+	justify-content: space-between;
+	width: 90%;
 	min-height: 200px;
 	max-height: 300px;
-    padding: 20px;
-    border: 1px solid black;
-    border-radius: 10px;
-    gap: 4px;
-    overflow-x: scroll;
+	padding: 20px;
+	border: 1px solid black;
+	border-radius: 10px;
+	gap: 4px;
+	overflow-x: scroll;
 }

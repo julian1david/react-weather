@@ -17,9 +17,9 @@ export const AppUI = () => {
 		<Fragment>
 			<CurrentWeather weather={weather} />
 			<ListDays weather={weather} />
-			<NextHours weather={weather}/>
-			<Map coordinates={coordinates}/>
-			<LocalHour/>
+			<NextHours weather={weather} />
+			<Map coordinates={coordinates} />
+			<LocalHour />
 		</Fragment>
 	);
 };

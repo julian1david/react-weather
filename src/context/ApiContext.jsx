@@ -47,7 +47,7 @@ const ApiContextProvider = ({ children }) => {
 	useEffect(() => {
 		const infoWeather = async () => {
 			try {
-				if(coordinates !== null){
+				if (coordinates !== null) {
 					const url = `${API}onecall?lat=${coordinates.lat}&lon=${coordinates.long}&appid=${API_KEY}&units=metric`;
 					const results = await axios(url);
 					const weather = results.data;
@@ -59,7 +59,7 @@ const ApiContextProvider = ({ children }) => {
 			}
 		};
 		infoWeather();
-	}, [ coordinates]);
+	}, [coordinates]);
 
 	return (
 		<ApiContext.Provider
