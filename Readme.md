@@ -4,7 +4,7 @@ App Weather of platzi, into to react.
 
 ## Vista del proyecto 🚀
 
-Mira **[Weather-App]/)** para conocer como funciona el proyecto.
+Mira **[Weather-App](https://julianf-dev-react-weatherapp.netlify.app/))** para conocer como funciona el proyecto.
 
 ### Instalación 🔧
 
