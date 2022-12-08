@@ -9,6 +9,7 @@ const ApiContext = createContext();
 const ApiContextProvider = ({ children }) => {
 	/* use State */
 	const [data, setData] = useState(null);
+	const [ip, setIp] = useState(null)
 	const [loading, setLoading] = useState(true);
 	const [location, setLocation] = useState(null)
 	// Si uso el estado vacio en la primer carga aparece un error de axios pero luego carga con las coordenadas de getLatAndLoading
@@ -17,10 +18,24 @@ const ApiContextProvider = ({ children }) => {
 	// Con este estado prioriza la carga de este state
 
 	useEffect(() => {
-		
+		const getIP = async () => {
+			try {
+				const results = await fetch('https://api.ipify.org?format=json');
+				const data = await results.json();
+				const dataIp = data.ip;
+				setIp(dataIp);
+			}
+			catch (error){
+				console.log(error)
+			}
+		}
+		getIP()
+	},[])
+
+	useEffect(() => {
 		const getLatAndLong = () => {
 			return new Promise((resolve, reject) =>
-				navigator.geolocation.getCurrentPosition(resolve, reject)
+			navigator.geolocation.getCurrentPosition(resolve, reject)
 			);
 		};
 
@@ -43,6 +58,7 @@ const ApiContextProvider = ({ children }) => {
 				console.log(error);
 			}
 		};
+		
 		location();
 	}, []);
 
@@ -66,6 +82,7 @@ const ApiContextProvider = ({ children }) => {
 	return (
 		<ApiContext.Provider
 			value={{
+				ip,
 				data,
 				loading,
 				coordinates,
