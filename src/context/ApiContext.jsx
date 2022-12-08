@@ -16,6 +16,7 @@ const ApiContextProvider = ({ children }) => {
 	// Con este estado prioriza la carga de este state
 
 	useEffect(() => {
+		
 		const getLatAndLong = () => {
 			return new Promise((resolve, reject) =>
 				navigator.geolocation.getCurrentPosition(resolve, reject)

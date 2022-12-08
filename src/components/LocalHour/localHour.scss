@@ -1,0 +1,11 @@
+.container-hour{
+    width: 100vw;
+    min-height: 200px;
+	max-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p{
+        font-size: 5rem;
+    }
+}
