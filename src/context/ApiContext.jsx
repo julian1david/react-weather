@@ -10,6 +10,7 @@ const ApiContextProvider = ({ children }) => {
 	/* use State */
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [location, setLocation] = useState(null)
 	// Si uso el estado vacio en la primer carga aparece un error de axios pero luego carga con las coordenadas de getLatAndLoading
 	// const [coordinates, setCoordinates] = useState({  });
 	const [coordinates, setCoordinates] = useState(null);
@@ -36,8 +37,8 @@ const ApiContextProvider = ({ children }) => {
 					lat: coords.latitude,
 					long: coords.longitude,
 				};
+				setLocation(position)
 				setCoordinates(newUserPos);
-				console.log(newUserPos);
 			} catch (error) {
 				console.log(error);
 			}
@@ -68,6 +69,7 @@ const ApiContextProvider = ({ children }) => {
 				data,
 				loading,
 				coordinates,
+				location
 			}}
 		>
 			{children}
